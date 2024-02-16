@@ -1,4 +1,5 @@
-import { createStateInstance } from '../state.js';
+import pen from '../../public/pen.svg'
+import { createdStateInstance } from '../state.js';
 import { renderElement, renderTask } from '../render.js';
 
 import modal from './modal.js';
@@ -6,7 +7,7 @@ import taskLine from './taskLine.js';
 
 
 const checkList = (id) => {
-  const state = createStateInstance.getState();
+  const state = createdStateInstance.getState();
   const { name } = state[id];
   const li = document.createElement('li');
   li.dataset.id = id;
@@ -14,8 +15,10 @@ const checkList = (id) => {
   li.innerHTML = `
     <header class='check-list__header'>
                 <h2 class='check-list__title js-list-title'>${name}</h2>
-                <button class='btn check-list__button-change js-change-title'>!!!</button>
-                <button class='btn check-list__button-delete js-button-delete'>Удалить чек лист</button>
+                <button class='btn check-list__button-change js-change-title'>
+                  <img src='${pen}' alt="Pen Icon" class='icon'/>
+                </button>
+                <button class='btn btn-red check-list__button-delete js-button-delete'>Удалить чек лист</button>
     </header>
     <ul class='list js-list'>
     </ul>
@@ -25,8 +28,10 @@ const checkList = (id) => {
   const title = li.querySelector('.js-list-title');
   const ul = li.querySelector('.js-list');
 
+  const view = createdStateInstance.getView();
+
   li.querySelector('.js-button-delete').addEventListener('click', () => {
-    createStateInstance.removeCheckList(id);
+    createdStateInstance.removeCheckList(id);
   });
 
   li.querySelector('.js-change-title').addEventListener('click', () => {
@@ -40,13 +45,13 @@ const checkList = (id) => {
   });
 
   title.addEventListener('blur', () => {
-    createStateInstance.changeTitle(id, title.innerText);
+    createdStateInstance.changeTitle(id, title.innerText);
   });
 
-  createStateInstance.subscribe(() => {
-    renderTask(ul, taskLine, id);
+  createdStateInstance.subscribe(() => {
+    renderTask(ul, taskLine, id, view);
   });
-  renderTask(ul, taskLine, id);
+  renderTask(ul, taskLine, id, view);
 
   return li;
 };

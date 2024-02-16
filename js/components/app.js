@@ -1,5 +1,5 @@
-import { createStateInstance } from '../state.js';
-import { render } from '../render.js';
+import { createdStateInstance } from '../state.js';
+import { renderToDoList } from '../render.js';
 
 import checkList from './checkList.js';
 
@@ -11,7 +11,7 @@ const app = () => {
     <h1 class='capture'>Чек листы</h1>
     <nav class='navigation'>
       <ul class='navigation__list js-filter'>
-        <li class='navigation__list-item' data-type='all'>Все задачи</li>
+        <li class='navigation__list-item navigation__list-item_selected' data-type='all'>Все задачи</li>
         <li class='navigation__list-item' data-type='active'>Активные</li>
         <li class='navigation__list-item' data-type='done'>Выполненные</li>
       </ul>
@@ -23,19 +23,28 @@ const app = () => {
     </main>
   `;
   const ul = div.querySelector('.check-lists');
+  const filterItems = div.querySelectorAll('.js-filter li');
+
+  const updateFilterHighlight = (selectedType) => {
+    filterItems.forEach(item => {
+      item.classList.toggle('navigation__list-item_selected', item.dataset.type === selectedType);
+    });
+  };
 
   div.querySelector('.js-filter').addEventListener('click', (e) => {
-    console.log(e.target.dataset.type);
+    const filterType = e.target.dataset.type;
+    createdStateInstance.changeView(filterType);
+    updateFilterHighlight(filterType);
   });
 
   div.querySelector('.js-create-list').addEventListener('click', () => {
-    createStateInstance.addCheckList();
+    createdStateInstance.addCheckList();
   });
 
-  createStateInstance.subscribe(() => {
-    render(ul, checkList);
+  createdStateInstance.subscribe(() => {
+    renderToDoList(ul, checkList);
   });
-  render(ul, checkList);
+  renderToDoList(ul, checkList);
 
   return div;
 };

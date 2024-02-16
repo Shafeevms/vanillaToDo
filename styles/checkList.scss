@@ -1,9 +1,11 @@
 .check-list {
   padding-top: 20px;
   padding-bottom: 20px;
+  border-bottom: 3px solid #e5acc9;
 
   &__header {
     display: flex;
+    align-items: center;
   }
 
   &__title {
@@ -26,10 +28,12 @@
   padding-bottom: 10px;
 
   &__item {
-    position: relative;
     padding-left: 30px;
+    padding-bottom: 20px;
+    position: relative;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid #bedc89;
 
     &:not(:last-child) {
       margin-bottom: 20px;
@@ -40,12 +44,13 @@
       position: absolute;
       left: 0;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translateY(-70%);
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: transparent;
-      border: 1px solid #000;
+      background-color: #bedc89;
+      box-shadow: 1px 1px 2px #6a853b;
+      border: 1px solid #bedc89;
     }
   }
 
@@ -60,5 +65,9 @@
 
   &__text_done {
     text-decoration: line-through;
+  }
+
+  &__btn-done {
+    margin-right: 5px;
   }
 }

@@ -1,4 +1,4 @@
-import { createStateInstance } from '../state.js';
+import { createdStateInstance } from '../state.js';
 
 
 const modal = (id) => {
@@ -22,7 +22,7 @@ const modal = (id) => {
   btnSave.addEventListener('click', (e) => {
     const titleValue = title.value;
     const descriptionValue = description.value;
-    createStateInstance.addTask(id, titleValue, descriptionValue)
+    createdStateInstance.addTask(id, titleValue, descriptionValue);
     document.body.classList.remove('modal_open');
     div.remove();
   });
