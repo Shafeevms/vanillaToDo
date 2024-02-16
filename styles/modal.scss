@@ -1,0 +1,47 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  &__frame {
+    position: relative;
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    width: 40%;
+    height: 40%;
+    background-color: #fff;
+  }
+  &__title {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    justify-self: center;
+    align-self: center;
+    font-size: 20px;
+  }
+
+  &__input-title {
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+  }
+
+  &__input-text {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+  }
+
+  &__btn-save {
+    grid-row: 5 / 6;
+    grid-column: 2 / 3;
+  }
+
+  &__btn-exit {
+    grid-row: 5 / 6;
+    grid-column: 3 / 4;
+  }
+}

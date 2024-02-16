@@ -1,0 +1,54 @@
+@import './styles/checkList';
+@import './styles/modal';
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body.modal_open {
+  overflow: hidden;
+}
+
+.container {
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  max-width: 1440px;
+}
+
+.input {
+  padding: 20px;
+  max-height: 40px;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+}
+
+.capture {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    max-width: 400px;
+  }
+
+  &__list-item {
+    cursor: pointer;
+  }
+}
