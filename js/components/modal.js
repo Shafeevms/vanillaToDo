@@ -1,6 +1,5 @@
-import { addTask } from '../state.js';
-import { renderElement } from '../helper.js';
-import taskLine from './taskLine.js';
+import { createStateInstance } from '../state.js';
+
 
 const modal = (id) => {
   const div = document.createElement('div');
@@ -23,9 +22,7 @@ const modal = (id) => {
   btnSave.addEventListener('click', (e) => {
     const titleValue = title.value;
     const descriptionValue = description.value;
-    const taskId = addTask(id, titleValue, descriptionValue);
-    const target = document.querySelector(`[data-id=${id}]`)
-    renderElement(target, taskLine, taskId);
+    createStateInstance.addTask(id, titleValue, descriptionValue)
     document.body.classList.remove('modal_open');
     div.remove();
   });

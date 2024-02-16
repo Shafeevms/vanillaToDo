@@ -1,14 +1,19 @@
-import { state } from '../state.js';
-import { renderElement } from '../helper.js';
+import { createStateInstance } from '../state.js';
+import { renderElement, renderTask } from '../render.js';
+
 import modal from './modal.js';
+import taskLine from './taskLine.js';
+
 
 const checkList = (id) => {
+  const state = createStateInstance.getState();
+  const { name } = state[id];
   const li = document.createElement('li');
   li.dataset.id = id;
   li.classList.add('check-list');
   li.innerHTML = `
     <header class='check-list__header'>
-                <h2 class='check-list__title js-list-title'>Чек лист</h2>
+                <h2 class='check-list__title js-list-title'>${name}</h2>
                 <button class='btn check-list__button-change js-change-title'>!!!</button>
                 <button class='btn check-list__button-delete js-button-delete'>Удалить чек лист</button>
     </header>
@@ -18,10 +23,10 @@ const checkList = (id) => {
   `;
 
   const title = li.querySelector('.js-list-title');
+  const ul = li.querySelector('.js-list');
 
   li.querySelector('.js-button-delete').addEventListener('click', () => {
-    delete state[id];
-    li.remove();
+    createStateInstance.removeCheckList(id);
   });
 
   li.querySelector('.js-change-title').addEventListener('click', () => {
@@ -35,8 +40,13 @@ const checkList = (id) => {
   });
 
   title.addEventListener('blur', () => {
-    state[id].name = title.innerText;
-  })
+    createStateInstance.changeTitle(id, title.innerText);
+  });
+
+  createStateInstance.subscribe(() => {
+    renderTask(ul, taskLine, id);
+  });
+  renderTask(ul, taskLine, id);
 
   return li;
 };

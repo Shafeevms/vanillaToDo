@@ -1,6 +1,8 @@
-import { addCheckList } from '../state.js';
-import { renderElement } from '../helper.js';
+import { createStateInstance } from '../state.js';
+import { render } from '../render.js';
+
 import checkList from './checkList.js';
+
 
 const app = () => {
   const div = document.createElement('div');
@@ -20,16 +22,20 @@ const app = () => {
       </ul>
     </main>
   `;
+  const ul = div.querySelector('.check-lists');
 
   div.querySelector('.js-filter').addEventListener('click', (e) => {
     console.log(e.target.dataset.type);
   });
 
   div.querySelector('.js-create-list').addEventListener('click', () => {
-    const ul = div.querySelector('.check-lists');
-    const id = addCheckList();
-    renderElement(ul, checkList, id);
+    createStateInstance.addCheckList();
   });
+
+  createStateInstance.subscribe(() => {
+    render(ul, checkList);
+  });
+  render(ul, checkList);
 
   return div;
 };
